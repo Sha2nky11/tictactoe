@@ -1,51 +1,32 @@
-import React , {useState} from 'react';
+import React from 'react';
 import Square from './Square';
 
-const Board = () => {
-
-  const [board,setBoard] = useState(Array(10).fill(null)); 
-  const [isSet,setIsSet] = useState(false);
-  
-  const handleSquareClick = (position) => {
-
-    if(board[position]){
-        return;
-    }
-
-      setBoard((prev) => {
-          return prev.map((square,pos) => {
-              if(pos === position) {
-                  return isSet ? 'X' : '0';
-              }
-              return square;
-          });
-      });
-      setIsSet((prev) => !prev);
+const Board = ({ board, handleSquareClick }) => {
+  const renderSquare = position => {
+    return (
+      <Square
+        value={board[position]}
+        onClick={() => handleSquareClick(position)}
+      />
+    );
   };
 
-  const renderSquare = (position) => {
-      return(
-        <Square value={board[position]} 
-        onClick = {() => handleSquareClick(position)}/>
-      );
-  }
-
   return (
-    <div className="board"> 
+    <div className="board">
       <div className="board-row">
-        {renderSquare(0)} 
+        {renderSquare(0)}
         {renderSquare(1)}
-        {renderSquare(2)}      
-      </div>     
+        {renderSquare(2)}
+      </div>
       <div className="board-row">
-        {renderSquare(4)}   
-        {renderSquare(5)}   
-        {renderSquare(6)}   
-      </div>      
+        {renderSquare(3)}
+        {renderSquare(4)}
+        {renderSquare(5)}
+      </div>
       <div className="board-row">
-        {renderSquare(7)}   
-        {renderSquare(8)}   
-        {renderSquare(9)}    
+        {renderSquare(6)}
+        {renderSquare(7)}
+        {renderSquare(8)}
       </div>
     </div>
   );
